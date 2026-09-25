@@ -1,10 +1,12 @@
+import Hero from '@/components/HomePage/Hero';
 import React from 'react';
+import "./globals.css";
 
 const page = () => {
   return (
     <div>
 
-      <h2>Welcome to the Home Page</h2>
+      <Hero></Hero>
 
     </div>
   );

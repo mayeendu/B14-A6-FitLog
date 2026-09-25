@@ -1,1 +1,19 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+body {
+  background-color: black;
+}
+
+@theme {
+  /* Colors */
+  --color-brand-primary: #ffffff;
+  --color-brand-secondary: #C2F800;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #9CA3AF;
+  --color-hero-paragraph: #9CA3AF;
+
+  /* Fonts */
+  --font-oswald: var(--font-oswald), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+}
