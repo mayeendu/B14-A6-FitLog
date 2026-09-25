@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const Navbar = () => {
     return (
-        <section className="bg-bg-primary container mx-auto">
+        <section className="bg-bg-primary container mx-auto border-b border-[#2d3038]">
             <div className="relative flex justify-between items-center p-4 sm:px-6 lg:px-8 bg-bg-primary text-white">
 
                 {/* Logo */}
