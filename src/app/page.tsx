@@ -1,12 +1,13 @@
 import Hero from '@/components/HomePage/Hero';
+import Library from '@/components/HomePage/Library';
 import React from 'react';
-import "./globals.css";
 
 const page = () => {
   return (
     <div>
 
       <Hero></Hero>
+      <Library> </Library>
 
     </div>
   );
