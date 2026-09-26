@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import { Inter, Oswald } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import { FitnessProvider } from "@/context/FitnessContext";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,7 +16,6 @@ const oswald = Oswald({
   subsets: ["latin"],
   variable: "--font-oswald",
 });
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,23 +40,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-
-
       className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <FitnessProvider>
-
-
-          <Navbar ></Navbar>
+          <Navbar></Navbar>
 
           <div className="flex-1 w-full flex flex-col items-center justify-center">
-
             {children}
           </div>
 
           <Footer></Footer>
         </FitnessProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
