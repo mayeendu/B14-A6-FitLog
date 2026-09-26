@@ -1,36 +1,59 @@
-import React from 'react';
-import logoImage from '../../assets/logo.png';
-import Image from 'next/image';
+
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+
+import logoImage from "../../assets/logo.png";
+import { useFitness } from "@/context/FitnessContext";
 
 const Navbar = () => {
+    const {
+        todayPlan,
+        savedExercises,
+    } = useFitness();
+
     return (
         <section className="bg-bg-primary container mx-auto border-b border-[#2d3038]">
             <div className="relative flex justify-between items-center p-4 sm:px-6 lg:px-8 bg-bg-primary text-white">
 
                 {/* Logo */}
-                <div className="flex items-center space-x-2">
+                <Link
+                    href="/"
+                    className="flex items-center space-x-2"
+                >
                     <Image
                         src={logoImage}
-                        alt="Logo"
+                        alt="FITLOG Logo"
                         className="h-6 w-6"
                     />
 
                     <div className="font-oswald text-xl font-medium">
                         FITLOG
                     </div>
-                </div>
+                </Link>
 
 
                 {/* Desktop & Tablet Navigation */}
                 <div className="hidden sm:block">
                     <ul className="flex font-inter space-x-2 md:space-x-4">
 
-                        <li className="text-brand-secondary bg-[#1A2312] rounded-full px-3 md:px-4 py-2 cursor-pointer">
-                            Workouts
+                        <li>
+                            <Link
+                                href="/"
+                                className="block text-brand-secondary bg-[#1A2312] rounded-full px-3 md:px-4 py-2"
+                            >
+                                Workouts
+                            </Link>
                         </li>
 
-                        <li className="px-3 md:px-4 py-2 rounded-full transition-colors cursor-pointer hover:bg-[#1A2312] hover:text-brand-secondary">
-                            My Plans
+                        <li>
+                            <Link
+                                href="/plans"
+                                className="block px-3 md:px-4 py-2 rounded-full transition-colors hover:bg-[#1A2312] hover:text-brand-secondary"
+                            >
+                                My Plans
+                            </Link>
                         </li>
 
                     </ul>
@@ -40,13 +63,19 @@ const Navbar = () => {
                 {/* Desktop & Tablet Buttons */}
                 <div className="hidden sm:flex space-x-2 md:space-x-4">
 
-                    <button className="px-3 md:px-4 py-2 rounded-full hover:bg-[#1A2312] transition-colors">
-                        Plan (0)
-                    </button>
+                    <Link
+                        href="/plans"
+                        className="px-3 md:px-4 py-2 rounded-full hover:bg-[#1A2312] transition-colors"
+                    >
+                        Plan ({todayPlan.length})
+                    </Link>
 
-                    <button className="px-3 md:px-4 py-2 rounded-full hover:bg-[#1A2312] transition-colors">
-                        Saved (0)
-                    </button>
+                    <Link
+                        href="/plans"
+                        className="px-3 md:px-4 py-2 rounded-full hover:bg-[#1A2312] transition-colors"
+                    >
+                        Saved ({savedExercises.length})
+                    </Link>
 
                 </div>
 
@@ -80,20 +109,40 @@ const Navbar = () => {
 
                         <ul className="flex flex-col gap-2 font-inter">
 
-                            <li className="text-brand-secondary bg-[#1A2312] rounded-xl px-4 py-3 cursor-pointer">
-                                Workouts
+                            <li>
+                                <Link
+                                    href="/"
+                                    className="block text-brand-secondary bg-[#1A2312] rounded-xl px-4 py-3"
+                                >
+                                    Workouts
+                                </Link>
                             </li>
 
-                            <li className="px-4 py-3 rounded-xl cursor-pointer hover:bg-[#1A2312] hover:text-brand-secondary transition-colors">
-                                My Plans
+                            <li>
+                                <Link
+                                    href="/plans"
+                                    className="block px-4 py-3 rounded-xl hover:bg-[#1A2312] hover:text-brand-secondary transition-colors"
+                                >
+                                    My Plans
+                                </Link>
                             </li>
 
-                            <li className="px-4 py-3 rounded-xl cursor-pointer hover:bg-[#1A2312] transition-colors">
-                                Plan (0)
+                            <li>
+                                <Link
+                                    href="/plans"
+                                    className="block px-4 py-3 rounded-xl hover:bg-[#1A2312] transition-colors"
+                                >
+                                    Plan ({todayPlan.length})
+                                </Link>
                             </li>
 
-                            <li className="px-4 py-3 rounded-xl cursor-pointer hover:bg-[#1A2312] transition-colors">
-                                Saved (0)
+                            <li>
+                                <Link
+                                    href="/plans"
+                                    className="block px-4 py-3 rounded-xl hover:bg-[#1A2312] transition-colors"
+                                >
+                                    Saved ({savedExercises.length})
+                                </Link>
                             </li>
 
                         </ul>

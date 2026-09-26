@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
-
-
 import { Inter, Oswald } from "next/font/google";
 import Footer from "@/components/layout/Footer";
+import { FitnessProvider } from "@/context/FitnessContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,17 +41,22 @@ export default function RootLayout({
     <html
       lang="en"
 
+
       className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <FitnessProvider>
 
-        <Navbar ></Navbar>
-        <div className="flex-1 w-full flex flex-col items-center justify-center">
 
-          {children}
-        </div>
+          <Navbar ></Navbar>
 
-        <Footer> </Footer>
+          <div className="flex-1 w-full flex flex-col items-center justify-center">
+
+            {children}
+          </div>
+
+          <Footer></Footer>
+        </FitnessProvider>
       </body>
     </html>
   );
