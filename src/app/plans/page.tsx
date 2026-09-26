@@ -36,7 +36,7 @@ const PlansPage = () => {
   return (
     <main className="min-h-screen w-full bg-[#101114] px-4 py-12 text-white sm:px-6 lg:py-16">
       {/* Main Content Container */}
-      <div className="mx-auto w-full max-w-[1400px]">
+      <div className="mx-auto w-full max-w-350">
         {/* ================= HEADING ================= */}
         <div className="text-base">
           <h1 className="text-4xl font-bold font-oswald uppercase sm:text-5xl">
@@ -95,7 +95,7 @@ const PlansPage = () => {
                   : "text-[#9ca3af] hover:text-white"
               }`}
             >
-              Today's Plan ({todayPlan.length})
+              {`Today's Plan`} ({todayPlan.length})
             </button>
 
             {/* Saved for Later */}

@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@plugin "daisyui";
-
 @theme {
   /* Brand Colors */
   --color-brand-primary: #ffffff;
@@ -13,10 +11,6 @@
 
   /* Text Colors */
   --color-hero-paragraph: #9ca3af;
-
-  /* Fonts */
-  --font-inter: var(--font-inter);
-  --font-oswald: var(--font-oswald);
 }
 
 /* Global Body */

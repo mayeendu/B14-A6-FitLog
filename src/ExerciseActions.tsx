@@ -23,7 +23,7 @@ const ExerciseActions = ({ exercise }: ExerciseActionsProps) => {
         className={`rounded-full px-6 py-3 font-inter font-bold transition ${
           isInTodayPlan
             ? "cursor-not-allowed bg-[#4a4d52] text-[#9ca3af]"
-            : "cursor-pointer bg-[#c2f800] text-black hover:bg-[#d4ff38]"
+            : "cursor-pointer bg-brand-secondary text-black hover:bg-[#d4ff38]"
         }`}
       >
         {isInTodayPlan ? "✓ Added to Today's Plan" : "Add Today's Plan"}
@@ -35,7 +35,7 @@ const ExerciseActions = ({ exercise }: ExerciseActionsProps) => {
         onClick={() => {
           // existing save functionality
         }}
-        className="cursor-pointer rounded-full border border-[#c2f800] px-6 py-3 font-inter font-bold text-[#c2f800] transition hover:bg-[#c2f800] hover:text-black"
+        className="cursor-pointer rounded-full border border-brand-secondary px-6 py-3 font-inter font-bold text-brand-secondary transition hover:brand-secondary hover:text-black"
       >
         Save for Later
       </button>

@@ -56,19 +56,19 @@ const PlanExerciseCard = ({
         <div className="mt-2 flex flex-wrap items-center gap-3 font-inter text-xs text-[#b4b7c0]">
           {/* Duration */}
           <span className="flex items-center gap-1">
-            <FaClock className="text-[#c2f800]" />
+            <FaClock className="text-brand-secondary" />
             {exercise.duration} min
           </span>
 
           {/* Calories */}
           <span className="flex items-center gap-1">
-            <FaFire className="text-[#c2f800]" />
+            <FaFire className="text-brand-secondary" />
             {exercise.caloriesBurned} kcal
           </span>
 
           {/* Rating */}
           <span className="flex items-center gap-1">
-            <FaStar className="text-[#c2f800]" />
+            <FaStar className="text-brand-secondary" />
             {exercise.rating}
           </span>
         </div>
@@ -79,7 +79,7 @@ const PlanExerciseCard = ({
         {/* View Details */}
         <Link
           href={`/exercises/${exercise.id}`}
-          className="rounded-full border border-[#343842] px-5 py-2 font-inter text-xs font-medium text-white transition hover:border-[#c2f800] hover:text-[#c2f800]"
+          className="rounded-full border border-[#343842] px-5 py-2 font-inter text-xs font-medium text-white transition hover:border-brand-secondary hover:text-brand-secondary"
         >
           View Details
         </Link>
@@ -93,7 +93,7 @@ const PlanExerciseCard = ({
             className={`rounded-full px-5 py-2 text-xs font-bold text-black transition ${
               isCompleted
                 ? "bg-green-600 hover:bg-green-500"
-                : "bg-[#9BC600] hover:bg-[#C2F800]"
+                : "bg-[#9BC600] hover:bg-brand-secondary"
             }`}
           >
             {isCompleted ? "✓ Completed" : "✓ Mark as Done"}
@@ -106,7 +106,7 @@ const PlanExerciseCard = ({
             className={`rounded-full px-5 py-2 font-inter text-xs font-bold text-black transition ${
               isInTodayPlan
                 ? "bg-green-600 hover:bg-green-500"
-                : "bg-[#9BC600] hover:bg-[#C2F800]"
+                : "bg-[#9BC600] hover:bg-brand-secondary"
             }`}
           >
             {isInTodayPlan ? "✓ Plan Added" : "Add to Today's Plan"}
@@ -128,7 +128,7 @@ const PlanExerciseCard = ({
       <div className="flex sm:hidden">
         <Link
           href={`/exercises/${exercise.id}`}
-          className="rounded-full border border-[#343842] px-3 py-2 text-xs text-white transition hover:border-[#c2f800] hover:text-[#c2f800]"
+          className="rounded-full border border-[#343842] px-3 py-2 text-xs text-white transition hover:border-brand-secondary hover:text-brand-secondary"
         >
           View
         </Link>

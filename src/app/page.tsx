@@ -1,14 +1,12 @@
-import Hero from '@/components/HomePage/Hero';
-import Library from '@/components/HomePage/Library';
-import React from 'react';
+import Hero from "@/components/HomePage/Hero";
+import Library from "@/components/HomePage/Library";
+import React from "react";
 
 const page = () => {
   return (
     <div>
-
       <Hero></Hero>
-      <Library> </Library>
-
+      <Library></Library>
     </div>
   );
 };

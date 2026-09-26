@@ -7,7 +7,7 @@ const Hero = () => {
     <section className="w-full bg-bg-primary">
       <div className="bg-[#15171D] container mx-auto rounded-2xl mt-7 ">
         <div>
-          <div className="flex min-h-[520px] flex-col items-center justify-between px-6 py-12 sm:px-10 md:flex-row md:px-12 lg:px-16">
+          <div className="flex min-h-130 flex-col items-center justify-between px-6 py-12 sm:px-10 md:flex-row md:px-12 lg:px-16">
             {/* Left Content */}
             <div className="w-full text-center md:w-1/2 md:text-left">
               {/* Small Heading */}
@@ -28,7 +28,7 @@ const Hero = () => {
               </p>
 
               {/* Button */}
-              <button className="mt-8 rounded-md bg-brand-secondary px-7 py-3 font-inter text-sm font-bold uppercase text-[#000000] transition-transform duration-200 hover:scale-105">
+              <button className="mt-8 rounded-md bg-brand-secondary px-7 py-3 font-inter text-sm font-bold uppercase text-bg-primary transition-transform duration-200 hover:scale-105">
                 Browse Workouts
               </button>
             </div>
@@ -38,7 +38,7 @@ const Hero = () => {
               <Image
                 src={heroImage}
                 alt="Workout illustration"
-                className="h-auto w-[240px] object-contain sm:w-[300px] md:w-[340px] lg:w-[400px]"
+                className="h-auto w-60 object-contain sm:w-75 md:w-85 lg:w-100"
                 priority
               />
             </div>

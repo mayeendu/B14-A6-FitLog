@@ -30,7 +30,7 @@ const ExerciseDetailsPage = async ({ params }: ExerciseDetailsPageProps) => {
         <div className="mx-auto max-w-7xl">
           <h1 className="text-3xl font-bold">Exercise not found</h1>
 
-          <Link href="/" className="mt-6 inline-block text-[#c2f800]">
+          <Link href="/" className="mt-6 inline-block text-brand-secondary">
             ← Back to Library
           </Link>
         </div>
@@ -43,7 +43,7 @@ const ExerciseDetailsPage = async ({ params }: ExerciseDetailsPageProps) => {
         {/* Main Details Card */}
         <div className="grid gap-8 lg:grid-cols-2">
           {/* ================= IMAGE ================= */}
-          <div className="relative h-full min-h-[500px] w-full lg:min-h-[660px]">
+          <div className="relative h-full min-h-125 w-full lg:min-h-165">
             <Image
               src={exercise.image}
               alt={exercise.name}
@@ -71,7 +71,7 @@ const ExerciseDetailsPage = async ({ params }: ExerciseDetailsPageProps) => {
               {exercise.muscleGroups.map((muscle) => (
                 <span
                   key={muscle}
-                  className="rounded-full bg-[#c2f800] px-4 py-1.5 text-sm font-bold text-black"
+                  className="rounded-full bg-brand-secondary px-4 py-1.5 text-sm font-bold text-black"
                 >
                   {muscle}
                 </span>
@@ -166,7 +166,7 @@ const ExerciseDetailsPage = async ({ params }: ExerciseDetailsPageProps) => {
                     key={index}
                     className="flex gap-4 text-sm leading-6 text-[#b7bac3]"
                   >
-                    <span className="min-w-[18px] text-[#8f949f]">
+                    <span className="min-w-4.5 text-[#8f949f]">
                       {index + 1}.
                     </span>
 
