@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+
 import { FaClock, FaFire, FaStar, FaTimes } from "react-icons/fa";
 
 import { Exercise } from "@/Types/exercise";
-import Image from "next/image";
+import { useFitness } from "@/context/FitnessContext";
 
 interface PlanExerciseCardProps {
   exercise: Exercise;
@@ -21,10 +23,15 @@ const PlanExerciseCard = ({
   isCompleted,
   onToggleCompleted,
 }: PlanExerciseCardProps) => {
+  const { todayPlan, toggleTodayPlan } = useFitness();
+
+  // Check whether this exercise is already in Today's Plan
+  const isInTodayPlan = todayPlan.some((item) => item.id === exercise.id);
+
   return (
-    <article className="flex items-center gap-4 rounded-xl border border-[#292c34] bg-[#17181e] p-3 transition duration-300 hover:border-[#3b3f49] sm:gap-5">
+    <article className="flex w-full items-center gap-4 rounded-xl border border-[#292c34] bg-[#17181e] p-3 transition duration-300 hover:border-[#3b3f49] sm:gap-5">
       {/* Exercise Image */}
-      <div className="relative h-16 w-auto shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-28">
+      <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-28">
         <Image
           src={exercise.image}
           alt={exercise.name}
@@ -46,58 +53,68 @@ const PlanExerciseCard = ({
         </p>
 
         {/* Stats */}
-        <div className="mt-2 flex font-inter flex-wrap items-center gap-3 text-xs text-[#b4b7c0]">
+        <div className="mt-2 flex flex-wrap items-center gap-3 font-inter text-xs text-[#b4b7c0]">
+          {/* Duration */}
           <span className="flex items-center gap-1">
             <FaClock className="text-[#c2f800]" />
             {exercise.duration} min
           </span>
 
-          <span className="flex font-inter items-center gap-1">
+          {/* Calories */}
+          <span className="flex items-center gap-1">
             <FaFire className="text-[#c2f800]" />
             {exercise.caloriesBurned} kcal
           </span>
 
-          <span className="flex font-inter items-center gap-1">
+          {/* Rating */}
+          <span className="flex items-center gap-1">
             <FaStar className="text-[#c2f800]" />
             {exercise.rating}
           </span>
         </div>
       </div>
 
-      {/* Actions */}
+      {/* Desktop Actions */}
       <div className="hidden shrink-0 items-center gap-3 sm:flex">
         {/* View Details */}
         <Link
           href={`/exercises/${exercise.id}`}
-          className="rounded-full border border-[#343842] px-5 py-2 text-xs font-inter font-medium text-white transition hover:border-[#c2f800] hover:text-[#c2f800]"
+          className="rounded-full border border-[#343842] px-5 py-2 font-inter text-xs font-medium text-white transition hover:border-[#c2f800] hover:text-[#c2f800]"
         >
           View Details
         </Link>
 
         {/* Main Action */}
         {activeTab === "today" ? (
+          /* Today's Plan → Complete Button */
           <button
             type="button"
             onClick={() => onToggleCompleted(exercise.id)}
             className={`rounded-full px-5 py-2 text-xs font-bold text-black transition ${
               isCompleted
                 ? "bg-green-600 hover:bg-green-500"
-                : "bg-[#9BC600]   hover:bg-[#C2F800]"
+                : "bg-[#9BC600] hover:bg-[#C2F800]"
             }`}
           >
             {isCompleted ? "✓ Completed" : "✓ Mark as Done"}
           </button>
         ) : (
+          /* Saved → Today's Plan Toggle */
           <button
             type="button"
-            className="rounded-full bg-brand-secondary px-5 py-2 font-inter text-xs font-bold text-black transition hover:bg-[#d4ff38]"
+            onClick={() => toggleTodayPlan(exercise)}
+            className={`rounded-full px-5 py-2 font-inter text-xs font-bold text-black transition ${
+              isInTodayPlan
+                ? "bg-green-600 hover:bg-green-500"
+                : "bg-[#9BC600] hover:bg-[#C2F800]"
+            }`}
           >
-            Add to Today's Plan
+            {isInTodayPlan ? "✓ Plan Added" : "Add to Today's Plan"}
           </button>
         )}
       </div>
 
-      {/* Remove */}
+      {/* Remove Button */}
       <button
         type="button"
         onClick={() => onRemove(exercise.id)}
@@ -107,11 +124,11 @@ const PlanExerciseCard = ({
         <FaTimes />
       </button>
 
-      {/* Mobile Actions */}
+      {/* Mobile View Button */}
       <div className="flex sm:hidden">
         <Link
           href={`/exercises/${exercise.id}`}
-          className="rounded-full border border-[#343842] px-3 py-2 text-xs text-white"
+          className="rounded-full border border-[#343842] px-3 py-2 text-xs text-white transition hover:border-[#c2f800] hover:text-[#c2f800]"
         >
           View
         </Link>

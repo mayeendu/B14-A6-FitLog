@@ -10,8 +10,8 @@ const Navbar = () => {
   const { todayPlan, savedExercises } = useFitness();
 
   return (
-    <section className="bg-bg-primary container mx-auto border-b border-[#2d3038]">
-      <div className="relative flex justify-between items-center p-4 sm:px-6 lg:px-8 bg-bg-primary text-white">
+    <section className="bg-bg-primary  border-b border-[#2d3038]">
+      <div className="relative flex container mx-auto justify-between items-center p-4 sm:px-6 lg:px-8 bg-bg-primary text-white">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <Image src={logoImage} alt="FITLOG Logo" className="h-6 w-6" />

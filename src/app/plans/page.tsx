@@ -18,6 +18,21 @@ const PlansPage = () => {
 
   const exercises = activeTab === "today" ? todayPlan : savedExercises;
 
+  //
+
+  const totalExercises = todayPlan.length;
+
+  const totalMinutes = todayPlan.reduce(
+    (total, exercise) => total + exercise.duration,
+    0,
+  );
+
+  const totalCalories = todayPlan.reduce(
+    (total, exercise) => total + exercise.caloriesBurned,
+    0,
+  );
+  //
+
   return (
     <main className="min-h-screen w-full bg-[#101114] px-4 py-12 text-white sm:px-6 lg:py-16">
       {/* Main Content Container */}
@@ -28,9 +43,43 @@ const PlansPage = () => {
             My Plans
           </h1>
 
-          <p className="mt-3 text-[#9ca3af] font-inter">
+          <p className="mt-3 mb-5 text-[#9ca3af] font-inter">
             Manage your workout exercises in one place.
           </p>
+        </div>
+
+        {/* Metrics Summary */}
+        <div className="flex items-center rounded-2xl bg-[#12131a] p-6 text-white border border-[#23242f]">
+          {/* Stat 1 */}
+          <div className="flex-1">
+            <p className="text-sm text-gray-400 font-medium">Exercises</p>
+            <p className="mt-2 text-4xl font-extrabold text-[#ccff00]">
+              {" "}
+              {totalExercises}
+            </p>
+          </div>
+
+          {/* Divider 1 */}
+          <div className="h-12 w-px bg-gray-800/60"></div>
+
+          {/* Stat 2 */}
+          <div className="flex-1 pl-8">
+            <p className="text-sm text-gray-400 font-medium">Minutes</p>
+            <p className="mt-2 text-4xl font-extrabold text-white">
+              {totalMinutes}
+            </p>
+          </div>
+
+          {/* Divider 2 */}
+          <div className="h-12 w-px bg-gray-800/60"></div>
+
+          {/* Stat 3 */}
+          <div className="flex-1 pl-8">
+            <p className="text-sm text-gray-400 font-medium">Calories</p>
+            <p className="mt-2 text-4xl font-extrabold text-white">
+              {totalCalories}
+            </p>
+          </div>
         </div>
 
         {/* ================= TABS ================= */}

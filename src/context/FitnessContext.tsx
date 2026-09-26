@@ -1,29 +1,21 @@
 "use client";
-import toast from "react-hot-toast";
 
+import toast from "react-hot-toast";
 import { createContext, useContext, useState, ReactNode } from "react";
 
 import { Exercise } from "@/Types/exercise";
 
-interface CompletedExercise {
-  id: number;
-
-  completed: boolean;
-}
-
 interface FitnessContextType {
   todayPlan: Exercise[];
-
   savedExercises: Exercise[];
-
   completedExercises: number[];
 
   addToTodayPlan: (exercise: Exercise) => void;
+  toggleTodayPlan: (exercise: Exercise) => void;
 
   saveForLater: (exercise: Exercise) => void;
 
   removeFromTodayPlan: (id: number) => void;
-
   removeFromSaved: (id: number) => void;
 
   toggleCompleted: (id: number) => void;
@@ -42,7 +34,9 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
 
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
 
-  ///
+  // ==========================================
+  // Mark as Done ↔ Completed
+  // ==========================================
 
   const toggleCompleted = (id: number) => {
     const alreadyCompleted = completedExercises.includes(id);
@@ -62,46 +56,56 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
     toast.success("Exercise completed! 💪");
   };
 
-  //
-
-  const toggleTodayPlan = (exercise: Exercise) => {
-    const alreadyExists = todayPlan.some((item) => item.id === exercise.id);
-
-    if (alreadyExists) {
-      setTodayPlan((previous) =>
-        previous.filter((item) => item.id !== exercise.id),
-      );
-
-      setCompletedExercises((previous) =>
-        previous.filter((exerciseId) => exerciseId !== exercise.id),
-      );
-
-      toast.success(`${exercise.name} removed from Today's Plan`);
-
-      return;
-    }
-
-    setTodayPlan((previous) => [...previous, exercise]);
-
-    toast.success(`${exercise.name} added to Today's Plan`);
-  };
-
-  // Add exercise to today's plan
+  // ==========================================
+  // Add exercise to Today's Plan
+  // ==========================================
 
   const addToTodayPlan = (exercise: Exercise) => {
     const alreadyExists = todayPlan.some((item) => item.id === exercise.id);
 
     if (alreadyExists) {
-      toast.error("Exercise is already Added");
+      toast.error("Exercise is already added");
       return;
     }
 
     setTodayPlan((previous) => [...previous, exercise]);
 
-    toast.success(`Added to Today's Plan`);
+    toast.success("Added to Today's Plan");
   };
 
-  // Save exercise for later
+  // ==========================================
+  // Add ↔ Remove from Today's Plan
+  // Used by Saved menu
+  // ==========================================
+
+  const toggleTodayPlan = (exercise: Exercise) => {
+    const alreadyExists = todayPlan.some((item) => item.id === exercise.id);
+
+    if (alreadyExists) {
+      // Remove from Today's Plan
+      setTodayPlan((previous) =>
+        previous.filter((item) => item.id !== exercise.id),
+      );
+
+      // Also remove completed status
+      setCompletedExercises((previous) =>
+        previous.filter((exerciseId) => exerciseId !== exercise.id),
+      );
+
+      toast.success("Removed from Today's Plan");
+
+      return;
+    }
+
+    // Add to Today's Plan
+    setTodayPlan((previous) => [...previous, exercise]);
+
+    toast.success("Added to Today's Plan");
+  };
+
+  // ==========================================
+  // Save for Later
+  // ==========================================
 
   const saveForLater = (exercise: Exercise) => {
     const alreadyExists = savedExercises.some(
@@ -115,16 +119,19 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
 
     setSavedExercises((previous) => [...previous, exercise]);
 
-    toast.success(`Saved for Future`);
+    toast.success("Saved for Future");
   };
 
-  // Remove exercise from today's plan
+  // ==========================================
+  // Remove from Today's Plan
+  // ==========================================
 
   const removeFromTodayPlan = (id: number) => {
     setTodayPlan((previous) =>
       previous.filter((exercise) => exercise.id !== id),
     );
 
+    // Remove completed status too
     setCompletedExercises((previous) =>
       previous.filter((exerciseId) => exerciseId !== id),
     );
@@ -132,7 +139,9 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
     toast.success("Removed from Today's Plan");
   };
 
-  // Remove exercise from saved exercises
+  // ==========================================
+  // Remove from Saved Exercises
+  // ==========================================
 
   const removeFromSaved = (id: number) => {
     setSavedExercises((previous) =>
@@ -146,17 +155,15 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
     <FitnessContext.Provider
       value={{
         todayPlan,
-
         savedExercises,
-
         completedExercises,
 
         addToTodayPlan,
+        toggleTodayPlan,
 
         saveForLater,
 
         removeFromTodayPlan,
-
         removeFromSaved,
 
         toggleCompleted,
@@ -166,6 +173,10 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
     </FitnessContext.Provider>
   );
 };
+
+// ==========================================
+// Custom Hook
+// ==========================================
 
 export const useFitness = () => {
   const context = useContext(FitnessContext);

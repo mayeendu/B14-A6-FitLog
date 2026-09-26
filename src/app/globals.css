@@ -1,19 +1,37 @@
 @import "tailwindcss";
+
 @plugin "daisyui";
 
-body {
-  background-color: black;
-}
-
 @theme {
-  /* Colors */
+  /* Brand Colors */
   --color-brand-primary: #ffffff;
-  --color-brand-secondary: #C2F800;
+  --color-brand-secondary: #c2f800;
+
+  /* Background Colors */
   --color-bg-primary: #000000;
-  --color-bg-secondary: #9CA3AF;
-  --color-hero-paragraph: #9CA3AF;
+  --color-bg-secondary: #9ca3af;
+
+  /* Text Colors */
+  --color-hero-paragraph: #9ca3af;
 
   /* Fonts */
-  --font-oswald: var(--font-oswald), sans-serif;
-  --font-inter: var(--font-inter), sans-serif;
+  --font-inter: var(--font-inter);
+  --font-oswald: var(--font-oswald);
+}
+
+/* Global Body */
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-brand-primary);
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-oswald), sans-serif;
 }

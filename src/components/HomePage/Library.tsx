@@ -11,7 +11,7 @@ const Library = async () => {
 
   return (
     <section className="container mx-auto px-4 py-16">
-      <div className="mb-10 text-center">
+      <div className="mb-10 text-left">
         <h2 className="text-4xl font-bold">THE LIBRARY</h2>
 
         <p className="mt-3 text-gray-500">
