@@ -334,7 +334,7 @@ const PlansPage = () => {
             </p>
 
             <Link
-              href="/"
+              href="/#library"
               className="mt-5 inline-block rounded-full bg-brand-secondary px-6 py-2 font-bold text-black transition hover:bg-[#d4ff38]"
             >
               Go to workout

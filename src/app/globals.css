@@ -29,3 +29,7 @@ h5,
 h6 {
   font-family: var(--font-oswald), sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}

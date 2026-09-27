@@ -63,3 +63,6 @@ Users can save exercises for future workouts without adding them to today's plan
 
 Saved exercises can later be added or removed from **Today's Plan** using a convenient toggle:
 
+### 4. 🔖 Sort by selected exercise 
+
+Users can sort exercises by durations, calories and ratings.
