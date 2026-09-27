@@ -2,15 +2,16 @@ import React from "react";
 
 import { Exercise } from "@/Types/exercise";
 import ExerciseCard from "@/components/exercises/ExerciseCard";
+import LibraryContent from "./LibraryContent";
+
 
 const Library = async () => {
   const response = await fetch(
     "https://api.api-store.workers.dev/api/fitlog"
   );
 
-  const exercises: Exercise[] = await response.json();
-
-  console.log(exercises);
+  const exercises: Exercise[] =
+    await response.json();
 
   return (
     <section
@@ -28,15 +29,8 @@ const Library = async () => {
         </p>
       </div>
 
-      {/* Exercise Grid */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {exercises.map((exercise) => (
-          <ExerciseCard
-            key={exercise.id}
-            exercise={exercise}
-          />
-        ))}
-      </div>
+      {/* Search + Exercise Grid */}
+      <LibraryContent exercises={exercises} />
     </section>
   );
 };

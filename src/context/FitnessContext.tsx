@@ -1,9 +1,30 @@
 "use client";
 
 import toast from "react-hot-toast";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 
 import { Exercise } from "@/Types/exercise";
+
+// --------------------------------------
+// Local Storage Keys
+// --------------------------------------
+
+const TODAY_PLAN_KEY = "fitlog-today-plan";
+const SAVED_EXERCISES_KEY = "fitlog-saved-exercises";
+const COMPLETED_EXERCISES_KEY = "fitlog-completed-exercises";
+
+// Maximum number of exercises allowed
+const MAX_TODAY_PLAN = 5;
+
+// --------------------------------------
+// Context Type
+// --------------------------------------
 
 interface FitnessContextType {
   todayPlan: Exercise[];
@@ -21,75 +42,207 @@ interface FitnessContextType {
   toggleCompleted: (id: number) => void;
 }
 
-const FitnessContext = createContext<FitnessContextType | undefined>(undefined);
+// --------------------------------------
+// Create Context
+// --------------------------------------
+
+const FitnessContext = createContext<FitnessContextType | undefined>(
+  undefined
+);
+
+// --------------------------------------
+// Provider Props
+// --------------------------------------
 
 interface FitnessProviderProps {
   children: ReactNode;
 }
 
-export const FitnessProvider = ({ children }: FitnessProviderProps) => {
+// --------------------------------------
+// Fitness Provider
+// --------------------------------------
+
+export const FitnessProvider = ({
+  children,
+}: FitnessProviderProps) => {
+  // --------------------------------------
+  // State
+  // --------------------------------------
+
   const [todayPlan, setTodayPlan] = useState<Exercise[]>([]);
 
   const [savedExercises, setSavedExercises] = useState<Exercise[]>([]);
 
-  const [completedExercises, setCompletedExercises] = useState<number[]>([]);
+  const [completedExercises, setCompletedExercises] = useState<number[]>(
+    []
+  );
 
-  // ==========================================
-  // Mark as Done ↔ Completed
-  // ==========================================
+  // Prevent localStorage from being overwritten
+  // before the initial data has been loaded.
+  const [hasLoaded, setHasLoaded] = useState(false);
 
-  const toggleCompleted = (id: number) => {
-    const alreadyCompleted = completedExercises.includes(id);
+  // --------------------------------------
+  // Load data from localStorage
+  // --------------------------------------
 
-    if (alreadyCompleted) {
-      setCompletedExercises((previous) =>
-        previous.filter((exerciseId) => exerciseId !== id),
+  useEffect(() => {
+    try {
+      const storedTodayPlan =
+        localStorage.getItem(TODAY_PLAN_KEY);
+
+      const storedSavedExercises =
+        localStorage.getItem(SAVED_EXERCISES_KEY);
+
+      const storedCompletedExercises =
+        localStorage.getItem(COMPLETED_EXERCISES_KEY);
+
+      if (storedTodayPlan) {
+        setTodayPlan(JSON.parse(storedTodayPlan));
+      }
+
+      if (storedSavedExercises) {
+        setSavedExercises(JSON.parse(storedSavedExercises));
+      }
+
+      if (storedCompletedExercises) {
+        setCompletedExercises(
+          JSON.parse(storedCompletedExercises)
+        );
+      }
+    } catch (error) {
+      console.error(
+        "Failed to load FitLog data from localStorage:",
+        error
       );
-
-      toast.success("Exercise marked as incomplete");
-
-      return;
+    } finally {
+      setHasLoaded(true);
     }
+  }, []);
 
-    setCompletedExercises((previous) => [...previous, id]);
+  // --------------------------------------
+  // Save Today's Plan
+  // --------------------------------------
 
-    toast.success("Exercise completed! 💪");
-  };
+  useEffect(() => {
+    if (!hasLoaded) return;
 
-  // ==========================================
-  // Add exercise to Today's Plan
-  // ==========================================
+    try {
+      localStorage.setItem(
+        TODAY_PLAN_KEY,
+        JSON.stringify(todayPlan)
+      );
+    } catch (error) {
+      console.error(
+        "Failed to save Today's Plan:",
+        error
+      );
+    }
+  }, [todayPlan, hasLoaded]);
+
+  // --------------------------------------
+  // Save Saved Exercises
+  // --------------------------------------
+
+  useEffect(() => {
+    if (!hasLoaded) return;
+
+    try {
+      localStorage.setItem(
+        SAVED_EXERCISES_KEY,
+        JSON.stringify(savedExercises)
+      );
+    } catch (error) {
+      console.error(
+        "Failed to save Saved Exercises:",
+        error
+      );
+    }
+  }, [savedExercises, hasLoaded]);
+
+  // --------------------------------------
+  // Save Completed Exercises
+  // --------------------------------------
+
+  useEffect(() => {
+    if (!hasLoaded) return;
+
+    try {
+      localStorage.setItem(
+        COMPLETED_EXERCISES_KEY,
+        JSON.stringify(completedExercises)
+      );
+    } catch (error) {
+      console.error(
+        "Failed to save Completed Exercises:",
+        error
+      );
+    }
+  }, [completedExercises, hasLoaded]);
+
+  // --------------------------------------
+  // Add Exercise to Today's Plan
+  // --------------------------------------
 
   const addToTodayPlan = (exercise: Exercise) => {
-    const alreadyExists = todayPlan.some((item) => item.id === exercise.id);
+    // Check duplicate
+    const alreadyExists = todayPlan.some(
+      (item) => item.id === exercise.id
+    );
 
     if (alreadyExists) {
       toast.error("Exercise is already added");
       return;
     }
 
-    setTodayPlan((previous) => [...previous, exercise]);
+    // Check maximum limit
+    if (todayPlan.length >= MAX_TODAY_PLAN) {
+      toast.error(
+        `Today's Plan can contain a maximum of ${MAX_TODAY_PLAN} lifts`
+      );
+      return;
+    }
+
+    // Add exercise
+    setTodayPlan((previous) => [
+      ...previous,
+      exercise,
+    ]);
 
     toast.success("Added to Today's Plan");
   };
 
-  // ==========================================
-  // Add ↔ Remove from Today's Plan
-  // Used by Saved menu
-  // ==========================================
+  // --------------------------------------
+  // Toggle Today's Plan
+  //
+  // If exercise exists:
+  //     remove it
+  //
+  // If exercise doesn't exist:
+  //     add it
+  // --------------------------------------
 
   const toggleTodayPlan = (exercise: Exercise) => {
-    const alreadyExists = todayPlan.some((item) => item.id === exercise.id);
+    const alreadyExists = todayPlan.some(
+      (item) => item.id === exercise.id
+    );
+
+    // --------------------------------------
+    // Remove existing exercise
+    // --------------------------------------
 
     if (alreadyExists) {
-      // Remove from Today's Plan
       setTodayPlan((previous) =>
-        previous.filter((item) => item.id !== exercise.id),
+        previous.filter(
+          (item) => item.id !== exercise.id
+        )
       );
 
-      // Also remove completed status
+      // If removed from today's plan,
+      // also remove its completed status.
       setCompletedExercises((previous) =>
-        previous.filter((exerciseId) => exerciseId !== exercise.id),
+        previous.filter(
+          (exerciseId) => exerciseId !== exercise.id
+        )
       );
 
       toast.success("Removed from Today's Plan");
@@ -97,19 +250,37 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
       return;
     }
 
-    // Add to Today's Plan
-    setTodayPlan((previous) => [...previous, exercise]);
+    // --------------------------------------
+    // Check maximum limit before adding
+    // --------------------------------------
+
+    if (todayPlan.length >= MAX_TODAY_PLAN) {
+      toast.error(
+        `Today's Plan can contain a maximum of ${MAX_TODAY_PLAN} lifts`
+      );
+
+      return;
+    }
+
+    // --------------------------------------
+    // Add exercise
+    // --------------------------------------
+
+    setTodayPlan((previous) => [
+      ...previous,
+      exercise,
+    ]);
 
     toast.success("Added to Today's Plan");
   };
 
-  // ==========================================
-  // Save for Later
-  // ==========================================
+  // --------------------------------------
+  // Save Exercise for Later
+  // --------------------------------------
 
   const saveForLater = (exercise: Exercise) => {
     const alreadyExists = savedExercises.some(
-      (item) => item.id === exercise.id,
+      (item) => item.id === exercise.id
     );
 
     if (alreadyExists) {
@@ -117,39 +288,90 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
       return;
     }
 
-    setSavedExercises((previous) => [...previous, exercise]);
+    setSavedExercises((previous) => [
+      ...previous,
+      exercise,
+    ]);
 
     toast.success("Saved for Future");
   };
 
-  // ==========================================
-  // Remove from Today's Plan
-  // ==========================================
+  // --------------------------------------
+  // Remove Exercise from Today's Plan
+  // --------------------------------------
 
   const removeFromTodayPlan = (id: number) => {
     setTodayPlan((previous) =>
-      previous.filter((exercise) => exercise.id !== id),
+      previous.filter(
+        (exercise) => exercise.id !== id
+      )
     );
 
     // Remove completed status too
     setCompletedExercises((previous) =>
-      previous.filter((exerciseId) => exerciseId !== id),
+      previous.filter(
+        (exerciseId) => exerciseId !== id
+      )
     );
 
     toast.success("Removed from Today's Plan");
   };
 
-  // ==========================================
-  // Remove from Saved Exercises
-  // ==========================================
+  // --------------------------------------
+  // Remove Exercise from Saved
+  // --------------------------------------
 
   const removeFromSaved = (id: number) => {
     setSavedExercises((previous) =>
-      previous.filter((exercise) => exercise.id !== id),
+      previous.filter(
+        (exercise) => exercise.id !== id
+      )
     );
 
     toast.success("Removed from saved exercises");
   };
+
+  // --------------------------------------
+  // Toggle Exercise Completed
+  // --------------------------------------
+
+  const toggleCompleted = (id: number) => {
+    const alreadyCompleted =
+      completedExercises.includes(id);
+
+    // --------------------------------------
+    // Mark as incomplete
+    // --------------------------------------
+
+    if (alreadyCompleted) {
+      setCompletedExercises((previous) =>
+        previous.filter(
+          (exerciseId) => exerciseId !== id
+        )
+      );
+
+      toast.success(
+        "Exercise marked as incomplete"
+      );
+
+      return;
+    }
+
+    // --------------------------------------
+    // Mark as completed
+    // --------------------------------------
+
+    setCompletedExercises((previous) => [
+      ...previous,
+      id,
+    ]);
+
+    toast.success("Exercise completed! 💪");
+  };
+
+  // --------------------------------------
+  // Provider
+  // --------------------------------------
 
   return (
     <FitnessContext.Provider
@@ -174,15 +396,17 @@ export const FitnessProvider = ({ children }: FitnessProviderProps) => {
   );
 };
 
-// ==========================================
+// --------------------------------------
 // Custom Hook
-// ==========================================
+// --------------------------------------
 
 export const useFitness = () => {
   const context = useContext(FitnessContext);
 
   if (!context) {
-    throw new Error("useFitness must be used inside FitnessProvider");
+    throw new Error(
+      "useFitness must be used inside FitnessProvider"
+    );
   }
 
   return context;
