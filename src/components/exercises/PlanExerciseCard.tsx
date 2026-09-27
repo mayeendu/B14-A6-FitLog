@@ -16,6 +16,7 @@ interface PlanExerciseCardProps {
   onToggleCompleted: (id: number) => void;
 }
 
+
 const PlanExerciseCard = ({
   exercise,
   activeTab,
@@ -90,11 +91,10 @@ const PlanExerciseCard = ({
           <button
             type="button"
             onClick={() => onToggleCompleted(exercise.id)}
-            className={`rounded-full px-5 py-2 text-xs font-bold text-black transition ${
-              isCompleted
+            className={`rounded-full px-5 py-2 text-xs font-bold text-black transition ${isCompleted
                 ? "bg-green-600 hover:bg-green-500"
                 : "bg-[#9BC600] hover:bg-brand-secondary"
-            }`}
+              }`}
           >
             {isCompleted ? "✓ Completed" : "✓ Mark as Done"}
           </button>
@@ -103,11 +103,10 @@ const PlanExerciseCard = ({
           <button
             type="button"
             onClick={() => toggleTodayPlan(exercise)}
-            className={`rounded-full px-5 py-2 font-inter text-xs font-bold text-black transition ${
-              isInTodayPlan
+            className={`rounded-full px-5 py-2 font-inter text-xs font-bold text-black transition ${isInTodayPlan
                 ? "bg-green-600 hover:bg-green-500"
                 : "bg-[#9BC600] hover:bg-brand-secondary"
-            }`}
+              }`}
           >
             {isInTodayPlan ? "✓ Plan Added" : "Add to Today's Plan"}
           </button>

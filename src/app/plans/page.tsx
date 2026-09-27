@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useFitness } from "@/context/FitnessContext";
 import PlanExerciseCard from "@/components/exercises/PlanExerciseCard";
+import Link from "next/dist/client/link";
 
 const PlansPage = () => {
   const {
@@ -13,6 +14,8 @@ const PlansPage = () => {
     removeFromSaved,
     toggleCompleted,
   } = useFitness();
+
+
 
   const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
 
@@ -89,11 +92,10 @@ const PlansPage = () => {
             <button
               type="button"
               onClick={() => setActiveTab("today")}
-              className={`rounded-lg px-5 py-3 text-sm font-bold transition sm:px-8 ${
-                activeTab === "today"
-                  ? "bg-[#1F242D] text-white"
-                  : "text-[#9ca3af] hover:text-white"
-              }`}
+              className={`rounded-lg px-5 py-3 text-sm font-bold transition sm:px-8 ${activeTab === "today"
+                ? "bg-[#1F242D] text-white"
+                : "text-[#9ca3af] hover:text-white"
+                }`}
             >
               {`Today's Plan`} ({todayPlan.length})
             </button>
@@ -102,11 +104,10 @@ const PlansPage = () => {
             <button
               type="button"
               onClick={() => setActiveTab("saved")}
-              className={`rounded-lg px-5 py-3 text-sm font-bold transition sm:px-8 ${
-                activeTab === "saved"
-                  ? "bg-[#1F242D] text-White"
-                  : "text-[#9ca3af] hover:text-white"
-              }`}
+              className={`rounded-lg px-5 py-3 text-sm font-bold transition sm:px-8 ${activeTab === "saved"
+                ? "bg-[#1F242D] text-White"
+                : "text-[#9ca3af] hover:text-white"
+                }`}
             >
               Saved ({savedExercises.length})
             </button>
@@ -148,13 +149,20 @@ const PlansPage = () => {
           <div className="mt-8 rounded-2xl border border-[#2d3038] bg-[#17181e] px-6 py-16 text-center">
             <h3 className="text-xl font-bold">
               {activeTab === "today"
-                ? "No exercises in today's plan"
+                ? "NOTHING HERE YET"
                 : "No saved exercises"}
             </h3>
 
             <p className="mt-3 text-[#9ca3af] font-inter">
-              Add some exercises from the exercise library.
-            </p>
+              Browse the library and add a lift to get today moving.            </p>
+            <Link
+              href="/">
+              <button type="button"
+                className="cursor-pointer rounded-full mt-5 bg-brand-secondary px-6 py-2 font-bold text-black transition hover:bg-[#d4ff38]"
+              >
+                {`Go to workout`}
+              </button>
+            </Link>
           </div>
         )}
       </div>
