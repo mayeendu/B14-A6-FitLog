@@ -2,6 +2,7 @@ import { Exercise } from "@/Types/exercise";
 import Image from "next/image";
 import Link from "next/link";
 import ExerciseActions from "@/components/exercises/ExerciseActions";
+import { notFound } from "next/navigation";
 
 interface ExerciseDetailsPageProps {
   params: Promise<{
@@ -24,7 +25,10 @@ const ExerciseDetailsPage = async ({ params }: ExerciseDetailsPageProps) => {
 
   const exercise = exercises.find((item) => item.id === Number(id));
 
+
+
   if (!exercise) {
+    notFound();
     return (
       <main className="min-h-screen bg-[#101114] px-6 py-20 text-white">
         <div className="mx-auto max-w-7xl">

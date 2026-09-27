@@ -147,7 +147,7 @@ const PlansPage = () => {
                 : "text-[#9ca3af] hover:text-white"
                 }`}
             >
-              Today's Plan ({todayPlan.length})
+              {`Today's Plan`} ({todayPlan.length})
             </button>
 
             {/* Saved */}
@@ -212,7 +212,7 @@ const PlansPage = () => {
                       setIsSortOpen(false);
                     }}
                     className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "duration"
-                      ? "bg-[#c2f800] text-black"
+                      ? "bg-brand-secondary text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
@@ -236,7 +236,7 @@ const PlansPage = () => {
                       setIsSortOpen(false);
                     }}
                     className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "calories"
-                      ? "bg-[#c2f800] text-black"
+                      ? "bg-brand-secondary text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
@@ -260,7 +260,7 @@ const PlansPage = () => {
                       setIsSortOpen(false);
                     }}
                     className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "rating"
-                      ? "bg-[#c2f800] text-black"
+                      ? "bg-brand-secondary text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
