@@ -15,7 +15,8 @@ const ExerciseActions = ({ exercise }: ExerciseActionsProps) => {
       <button
         type="button"
         onClick={() => addToTodayPlan(exercise)}
-        className="cursor-pointer rounded-full border border-brand-secondary bg-brand-secondary px-6 py-3 font-bold text-black transition hover:bg-transparent hover:border-brand-secondary hover:text-brand-secondary"
+        className="cursor-pointer rounded-full border border-brand-secondary bg-brand-secondary px-6 py-3 font-bold
+         text-black transition hover:bg-transparent hover:border-brand-secondary hover:text-brand-secondary"
       >
         {`Add Today's Plan`}
       </button>
@@ -23,7 +24,8 @@ const ExerciseActions = ({ exercise }: ExerciseActionsProps) => {
       <button
         type="button"
         onClick={() => saveForLater(exercise)}
-        className="cursor-pointer rounded-full border border-brand-secondary px-6 py-3 font-bold text-brand-secondary transition hover:bg-brand-secondary hover:text-black"
+        className="cursor-pointer rounded-full border border-brand-secondary px-6 py-3 font-bold text-brand-secondary transition
+         hover:bg-brand-secondary hover:text-black"
       >
         Save for Later
       </button>
