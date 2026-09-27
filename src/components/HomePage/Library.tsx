@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Exercise } from "@/Types/exercise";
-import ExerciseCard from "@/components/exercises/ExerciseCard";
 import LibraryContent from "./LibraryContent";
 
 

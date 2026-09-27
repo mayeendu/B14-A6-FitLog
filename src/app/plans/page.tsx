@@ -175,7 +175,7 @@ const PlansPage = () => {
             </p>
 
             <div className="mt-2 flex items-end gap-2">
-              <p className="font-inter text-4xl font-extrabold leading-none text-[#c2f800]">
+              <p className="font-inter text-4xl font-extrabold leading-none text-brand-secondary">
                 {totalExercises}
               </p>
 
@@ -185,7 +185,7 @@ const PlansPage = () => {
             </div>
 
             <p className="mt-3 font-inter text-xs text-[#6b7280]">
-              Today's workout limit
+              {`Today's workout limit`}
             </p>
           </div>
 
@@ -239,7 +239,7 @@ const PlansPage = () => {
                 : "text-[#9ca3af] hover:text-white"
                 }`}
             >
-              Today's Plan ({todayPlan.length})
+              {`Today's Plan`} ({todayPlan.length})
             </button>
 
             <button
@@ -277,7 +277,7 @@ const PlansPage = () => {
                 }
                 placeholder="Search workouts..."
                 aria-label="Search workouts"
-                className="w-full rounded-xl border border-[#2d3038] bg-[#17181e] py-3 pl-11 pr-4 font-inter text-sm text-white outline-none transition placeholder:text-[#6b7280] focus:border-[#c2f800]"
+                className="w-full rounded-xl border border-[#2d3038] bg-[#17181e] py-3 pl-11 pr-4 font-inter text-sm text-white outline-none transition placeholder:text-[#6b7280] focus:border-brand-secondary]"
               />
             </div>
 
@@ -291,9 +291,9 @@ const PlansPage = () => {
                       !previous
                   )
                 }
-                className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#2d3038] bg-[#17181e] px-5 py-3 font-inter text-sm font-medium text-white transition hover:border-[#c2f800] sm:w-auto"
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#2d3038] bg-[#17181e] px-5 py-3 font-inter text-sm font-medium text-white transition hover:border-brand-secondary sm:w-auto"
               >
-                <FaSortAmountDown className="text-[#c2f800]" />
+                <FaSortAmountDown className="text-brand-secondary" />
 
                 <span>
                   Sort:{" "}
@@ -316,7 +316,7 @@ const PlansPage = () => {
                     }}
                     className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left font-inter text-sm font-medium transition ${sortBy ===
                       "duration"
-                      ? "bg-[#c2f800] text-black"
+                      ? "bg-brand-secondary text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
@@ -346,7 +346,7 @@ const PlansPage = () => {
                     }}
                     className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left font-inter text-sm font-medium transition ${sortBy ===
                       "calories"
-                      ? "bg-[#c2f800] text-black"
+                      ? "bg-brand-secondary text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
@@ -376,7 +376,7 @@ const PlansPage = () => {
                     }}
                     className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left font-inter text-sm font-medium transition ${sortBy ===
                       "rating"
-                      ? "bg-[#c2f800] text-black"
+                      ? "bg-brand-secondary text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >

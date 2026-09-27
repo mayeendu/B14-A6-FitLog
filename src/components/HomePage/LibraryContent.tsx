@@ -63,7 +63,7 @@ const LibraryContent = ({
                         }
                         placeholder="Search workouts, muscles, equipment..."
                         aria-label="Search workouts"
-                        className="w-full rounded-full border border-[#2d3038] bg-[#17181e] py-3 pl-11 pr-5 font-inter text-sm text-white outline-none transition placeholder:text-[#6b7280] focus:border-[#c2f800]"
+                        className="w-full rounded-full border border-[#2d3038] bg-[#17181e] py-3 pl-11 pr-5 font-inter text-sm text-white outline-none transition placeholder:text-[#6b7280] focus:border-brand-secondary"
                     />
                 </div>
             </div>

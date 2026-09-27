@@ -69,115 +69,74 @@ export const FitnessProvider = ({
   // State
   // --------------------------------------
 
-  const [todayPlan, setTodayPlan] = useState<Exercise[]>([]);
-
-  const [savedExercises, setSavedExercises] = useState<Exercise[]>([]);
-
-  const [completedExercises, setCompletedExercises] = useState<number[]>(
-    []
-  );
-
-  // Prevent localStorage from being overwritten
-  // before the initial data has been loaded.
-  const [hasLoaded, setHasLoaded] = useState(false);
-
-  // --------------------------------------
-  // Load data from localStorage
-  // --------------------------------------
-
-  useEffect(() => {
+  const [todayPlan, setTodayPlan] = useState<Exercise[]>(() => {
+    if (typeof window === "undefined") return [];
     try {
-      const storedTodayPlan =
-        localStorage.getItem(TODAY_PLAN_KEY);
-
-      const storedSavedExercises =
-        localStorage.getItem(SAVED_EXERCISES_KEY);
-
-      const storedCompletedExercises =
-        localStorage.getItem(COMPLETED_EXERCISES_KEY);
-
-      if (storedTodayPlan) {
-        setTodayPlan(JSON.parse(storedTodayPlan));
-      }
-
-      if (storedSavedExercises) {
-        setSavedExercises(JSON.parse(storedSavedExercises));
-      }
-
-      if (storedCompletedExercises) {
-        setCompletedExercises(
-          JSON.parse(storedCompletedExercises)
-        );
-      }
-    } catch (error) {
-      console.error(
-        "Failed to load FitLog data from localStorage:",
-        error
-      );
-    } finally {
-      setHasLoaded(true);
+      const item = localStorage.getItem(TODAY_PLAN_KEY);
+      return item ? JSON.parse(item) : [];
+    } catch {
+      return [];
     }
-  }, []);
+  });
+
+  const [savedExercises, setSavedExercises] = useState<Exercise[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const item = localStorage.getItem(SAVED_EXERCISES_KEY);
+      return item ? JSON.parse(item) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [completedExercises, setCompletedExercises] = useState<number[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const item = localStorage.getItem(COMPLETED_EXERCISES_KEY);
+      return item ? JSON.parse(item) : [];
+    } catch {
+      return [];
+    }
+  });
+
 
   // --------------------------------------
   // Save Today's Plan
   // --------------------------------------
 
   useEffect(() => {
-    if (!hasLoaded) return;
-
     try {
-      localStorage.setItem(
-        TODAY_PLAN_KEY,
-        JSON.stringify(todayPlan)
-      );
+      localStorage.setItem(TODAY_PLAN_KEY, JSON.stringify(todayPlan));
     } catch (error) {
-      console.error(
-        "Failed to save Today's Plan:",
-        error
-      );
+      console.error("Failed to save Today's Plan:", error);
     }
-  }, [todayPlan, hasLoaded]);
+  }, [todayPlan]);
 
   // --------------------------------------
   // Save Saved Exercises
   // --------------------------------------
 
   useEffect(() => {
-    if (!hasLoaded) return;
-
     try {
-      localStorage.setItem(
-        SAVED_EXERCISES_KEY,
-        JSON.stringify(savedExercises)
-      );
+      localStorage.setItem(SAVED_EXERCISES_KEY, JSON.stringify(savedExercises));
     } catch (error) {
-      console.error(
-        "Failed to save Saved Exercises:",
-        error
-      );
+      console.error("Failed to save Saved Exercises:", error);
     }
-  }, [savedExercises, hasLoaded]);
+  }, [savedExercises]);
 
   // --------------------------------------
   // Save Completed Exercises
   // --------------------------------------
 
   useEffect(() => {
-    if (!hasLoaded) return;
-
     try {
-      localStorage.setItem(
-        COMPLETED_EXERCISES_KEY,
-        JSON.stringify(completedExercises)
-      );
+      localStorage.setItem(COMPLETED_EXERCISES_KEY, JSON.stringify(completedExercises));
     } catch (error) {
-      console.error(
-        "Failed to save Completed Exercises:",
-        error
-      );
+      console.error("Failed to save Completed Exercises:", error);
     }
-  }, [completedExercises, hasLoaded]);
+  }, [completedExercises]);
+
+
 
   // --------------------------------------
   // Add Exercise to Today's Plan
@@ -213,12 +172,6 @@ export const FitnessProvider = ({
 
   // --------------------------------------
   // Toggle Today's Plan
-  //
-  // If exercise exists:
-  //     remove it
-  //
-  // If exercise doesn't exist:
-  //     add it
   // --------------------------------------
 
   const toggleTodayPlan = (exercise: Exercise) => {
