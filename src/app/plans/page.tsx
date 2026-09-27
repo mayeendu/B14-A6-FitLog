@@ -211,12 +211,21 @@ const PlansPage = () => {
                       setSortBy("duration");
                       setIsSortOpen(false);
                     }}
-                    className={`w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "duration"
+                    className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "duration"
                       ? "bg-[#c2f800] text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
-                    Duration
+                    <span
+                      className={`w-4 text-center transition-opacity ${sortBy === "duration"
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                        }`}
+                    >
+                      ✓
+                    </span>
+
+                    <span>Duration</span>
                   </button>
 
                   {/* Calories */}
@@ -226,12 +235,21 @@ const PlansPage = () => {
                       setSortBy("calories");
                       setIsSortOpen(false);
                     }}
-                    className={`w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "calories"
+                    className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "calories"
                       ? "bg-[#c2f800] text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
-                    Calories
+                    <span
+                      className={`w-4 text-center transition-opacity ${sortBy === "calories"
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                        }`}
+                    >
+                      ✓
+                    </span>
+
+                    <span>Calories</span>
                   </button>
 
                   {/* Rating */}
@@ -241,12 +259,21 @@ const PlansPage = () => {
                       setSortBy("rating");
                       setIsSortOpen(false);
                     }}
-                    className={`w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "rating"
+                    className={`group flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition sm:text-base ${sortBy === "rating"
                       ? "bg-[#c2f800] text-black"
                       : "text-white hover:bg-[#252830]"
                       }`}
                   >
-                    Rating
+                    <span
+                      className={`w-4 text-center transition-opacity ${sortBy === "rating"
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                        }`}
+                    >
+                      ✓
+                    </span>
+
+                    <span>Rating</span>
                   </button>
                 </div>
               )}
